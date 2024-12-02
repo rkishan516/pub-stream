@@ -8,12 +8,12 @@ import 'package:collection/collection.dart';
 import 'package:dart_frog/dart_frog.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
-import 'package:server/models/pubstream_version.dart';
 import 'package:server/stores/meta_store.dart';
 import 'package:server/stores/package_store.dart';
 import 'package:server/utils/get_uploader_email.dart';
 import 'package:server/utils/load_yaml.dart';
 import 'package:server/utils/resolve_url.dart';
+import 'package:shared/shared.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   try {

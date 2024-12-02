@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:server/models/pubstream_package.dart';
+import 'package:shared/src/models/pubstream_package.dart';
 
 part 'pubstream_version.freezed.dart';
 part 'pubstream_version.g.dart';

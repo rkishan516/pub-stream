@@ -1,10 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:mongo_dart/mongo_dart.dart';
-import 'package:server/models/pubstream_package.dart';
-import 'package:server/models/pubstream_query_result.dart';
-import 'package:server/models/pubstream_version.dart';
 
 import 'package:server/stores/meta_store.dart';
+import 'package:shared/shared.dart';
 
 const packageCollection = 'packages';
 const statsCollection = 'stats';

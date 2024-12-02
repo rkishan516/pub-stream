@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+// View routes imports
+import 'package:pubstream/app/developer_menu/presentation/page.dart';
+import 'package:pubstream/app/home/presentation/page.dart';
+import 'package:pubstream/app/splash/presentation/page.dart';
+
+part 'app_router.g.dart';
+
+@TypedGoRoute<HomePageRoute>(
+  path: HomePageRoute.path,
+  name: HomePageRoute.name,
+  routes: [
+    // Other routes nested under the home route
+  ],
+)
+class HomePageRoute extends GoRouteData {
+  static const path = '/';
+  static const name = 'home';
+  const HomePageRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const HomePage();
+}
+
+// Other routes definations
+
+@TypedGoRoute<SplashPageRoute>(
+  path: SplashPageRoute.path,
+  name: SplashPageRoute.name,
+)
+class SplashPageRoute extends GoRouteData {
+  static const path = '/splash';
+  static const name = 'splash';
+  const SplashPageRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const SplashPage();
+}
+
+@TypedGoRoute<DeveloperMenuPageRoute>(
+  path: DeveloperMenuPageRoute.path,
+  name: DeveloperMenuPageRoute.name,
+)
+class DeveloperMenuPageRoute extends GoRouteData {
+  static const path = '/developerMenu';
+  static const name = 'developerMenu';
+  const DeveloperMenuPageRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const DeveloperMenuPage();
+}

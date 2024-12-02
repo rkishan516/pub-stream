@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
 import 'package:pub_semver/pub_semver.dart' as semver;
-import 'package:server/models/pubstream_version.dart';
 import 'package:server/stores/meta_store.dart';
 import 'package:server/utils/resolve_url.dart';
+import 'package:shared/shared.dart';
 
 import '../../../_middleware.dart';
 

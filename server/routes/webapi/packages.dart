@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dart_frog/dart_frog.dart';
-import 'package:server/models/models.dart';
 import 'package:server/stores/meta_store.dart';
 import 'package:server/utils/get_packages_tags.dart';
+import 'package:shared/shared.dart';
 
 Future<Response> onRequest(RequestContext context) async {
   final params = context.request.uri.queryParameters;
@@ -55,10 +55,6 @@ Future<Response> onRequest(RequestContext context) async {
       HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
       'Access-Control-Allow-Origin': '*',
     },
-    body: json.encode(
-      {
-        'data': data.toJson(),
-      },
-    ),
+    body: json.encode(data.toJson()),
   );
 }

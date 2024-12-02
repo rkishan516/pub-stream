@@ -1,6 +1,4 @@
-import 'package:server/models/pubstream_package.dart';
-import 'package:server/models/pubstream_query_result.dart';
-import 'package:server/models/pubstream_version.dart';
+import 'package:shared/shared.dart';
 
 abstract class MetaStore {
   Future<void> startDb();
