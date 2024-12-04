@@ -17,7 +17,14 @@ Future<Response> onRequest(
 
   final package = await metaStore.queryPackage(name);
   if (package == null) {
-    return _okWithJson({'error': 'package not exists'});
+    return Response(
+      statusCode: HttpStatus.notFound,
+      body: json.encode({'error': 'package not exists'}),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        'Access-Control-Allow-Origin': '*',
+      },
+    );
   }
 
   PubStreamVersion? packageVersion;
@@ -28,7 +35,14 @@ Future<Response> onRequest(
         package.versions.firstWhereOrNull((item) => item.version == version);
   }
   if (packageVersion == null) {
-    return _okWithJson({'error': 'version not exists'});
+    return Response(
+      statusCode: HttpStatus.notFound,
+      body: json.encode({'error': 'version not exists'}),
+      headers: {
+        HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
+        'Access-Control-Allow-Origin': '*',
+      },
+    );
   }
 
   final versions = package.versions
@@ -73,7 +87,7 @@ Future<Response> onRequest(
     tags: getPackageTags(packageVersion.pubspec),
   );
 
-  return _okWithJson({'data': data.toJson()});
+  return _okWithJson(data.toJson());
 }
 
 Response _okWithJson(Map<String, dynamic> data) => Response(

@@ -30,4 +30,18 @@ class PackageRepository {
 
     return ListApi.fromJson(body);
   }
+
+  Future<WebapiDetailView> getPackage({
+    required String packageName,
+    String version = 'latest',
+  }) async {
+    final resposne = await http.get(
+      Uri.parse(
+        '${ref.read(environmentConfigProvider).endpoint}/webapi/package/$packageName/$version',
+      ),
+    );
+    final body = json.decode(resposne.body) as Map<String, dynamic>;
+
+    return WebapiDetailView.fromJson(body);
+  }
 }

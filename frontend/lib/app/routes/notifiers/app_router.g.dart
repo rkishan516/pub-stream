@@ -21,6 +21,13 @@ RouteBase get $homePageRoute => GoRouteData.$route(
           path: 'packages',
           name: 'PackagesView',
           factory: $PackagesViewPageRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: ':packageName',
+              name: 'PackageHomeView',
+              factory: $PackageHomeViewPageRouteExtension._fromState,
+            ),
+          ],
         ),
       ],
     );
@@ -55,6 +62,26 @@ extension $PackagesViewPageRouteExtension on PackagesViewPageRoute {
           if (query != null) 'query': query,
           if (sort != null) 'sort': sort,
         },
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PackageHomeViewPageRouteExtension on PackageHomeViewPageRoute {
+  static PackageHomeViewPageRoute _fromState(GoRouterState state) =>
+      PackageHomeViewPageRoute(
+        packageName: state.pathParameters['packageName']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/packages/${Uri.encodeComponent(packageName)}',
       );
 
   void go(BuildContext context) => context.go(location);

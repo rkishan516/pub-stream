@@ -124,26 +124,31 @@ class _Packages extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final package = state.packages.packages.elementAt(index);
                   return Align(
-                    child: SizedBox(
-                      height: 300,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 8),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                package.name,
-                                style: theme.textTheme.displaySmall
-                                    ?.copyWith(color: theme.primaryColor),
-                              ),
-                              const Spacer(),
-                              if (package.description != null)
-                                Text(package.description!),
-                              const Spacer(),
-                              Text(package.latest),
-                            ],
+                    child: GestureDetector(
+                      onTap: () =>
+                          PackageHomeViewPageRoute(packageName: package.name)
+                              .go(context),
+                      child: SizedBox(
+                        height: 300,
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  package.name,
+                                  style: theme.textTheme.displaySmall
+                                      ?.copyWith(color: theme.primaryColor),
+                                ),
+                                const Spacer(),
+                                if (package.description != null)
+                                  Text(package.description!),
+                                const Spacer(),
+                                Text(package.latest),
+                              ],
+                            ),
                           ),
                         ),
                       ),
