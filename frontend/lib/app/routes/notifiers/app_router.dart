@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 // View routes imports
+import 'package:pubstream/app/packages/presentation/packages_view.dart';
 import 'package:pubstream/app/developer_menu/presentation/page.dart';
 import 'package:pubstream/app/home/presentation/page.dart';
 import 'package:pubstream/app/splash/presentation/page.dart';
@@ -13,6 +14,10 @@ part 'app_router.g.dart';
   name: HomePageRoute.name,
   routes: [
     // Other routes nested under the home route
+    TypedGoRoute<PackagesViewPageRoute>(
+      path: PackagesViewPageRoute.path,
+      name: PackagesViewPageRoute.name,
+    ),
   ],
 )
 class HomePageRoute extends GoRouteData {
@@ -25,6 +30,18 @@ class HomePageRoute extends GoRouteData {
 }
 
 // Other routes definations
+class PackagesViewPageRoute extends GoRouteData {
+  static const path = 'packages';
+  static const name = 'PackagesView';
+  const PackagesViewPageRoute({this.query, this.sort});
+  final String? query;
+  final String? sort;
+  @override
+  Widget build(BuildContext context, GoRouterState state) => PackagesView(
+        query: query,
+        sort: sort,
+      );
+}
 
 @TypedGoRoute<SplashPageRoute>(
   path: SplashPageRoute.path,

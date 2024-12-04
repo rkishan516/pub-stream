@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pubstream/app/home/notifiers/page_notifier.dart';
+import 'package:pubstream/app/routes/notifiers/app_router.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -51,8 +52,6 @@ class _PackageSearchField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.watch(homePageNotifierProvider.notifier);
-
     final theme = Theme.of(context);
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(20),
@@ -72,7 +71,8 @@ class _PackageSearchField extends ConsumerWidget {
           prefixIcon: Icon(Icons.search),
         ),
         style: theme.textTheme.titleSmall,
-        onChanged: notifier.updateFieldName,
+        onFieldSubmitted: (query) =>
+            PackagesViewPageRoute(query: query).go(context),
       ),
     );
   }
@@ -126,7 +126,7 @@ class _TopPackages extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    return ref.watch(packagesListProvider).when(
+    return ref.watch(homePageNotifierProvider).when(
           data: (packages) => Center(
             child: GridView.builder(
               padding: EdgeInsets.symmetric(horizontal: 40),
@@ -135,9 +135,9 @@ class _TopPackages extends ConsumerWidget {
                 childAspectRatio: 2,
                 minCrossAxisExtent: 400,
               ),
-              itemCount: packages.count,
+              itemCount: packages.packages.count,
               itemBuilder: (context, index) {
-                final package = packages.packages.elementAt(index);
+                final package = packages.packages.packages.elementAt(index);
                 return Align(
                   child: SizedBox(
                     height: 300,

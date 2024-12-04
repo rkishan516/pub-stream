@@ -9,7 +9,7 @@ import 'package:shared/shared.dart';
 part 'packages.g.dart';
 
 @riverpod
-PackageRepository homePackageRepository(Ref ref) {
+PackageRepository packageRepository(Ref ref) {
   return PackageRepository(ref: ref);
 }
 
@@ -17,10 +17,13 @@ class PackageRepository {
   final Ref ref;
   PackageRepository({required this.ref});
 
-  Future<ListApi> getTopPackages() async {
+  Future<ListApi> getTopPackages({
+    String? query,
+    String? sort,
+  }) async {
     final resposne = await http.get(
       Uri.parse(
-        '${ref.read(environmentConfigProvider).endpoint}/webapi/packages',
+        '${ref.read(environmentConfigProvider).endpoint}/webapi/packages?${query == null ? '' : 'q=$query&'}${sort == null ? '' : 'sort=$sort'}',
       ),
     );
     final body = json.decode(resposne.body) as Map<String, dynamic>;

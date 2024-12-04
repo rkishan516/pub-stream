@@ -16,6 +16,13 @@ RouteBase get $homePageRoute => GoRouteData.$route(
       path: '/',
       name: 'home',
       factory: $HomePageRouteExtension._fromState,
+      routes: [
+        GoRouteData.$route(
+          path: 'packages',
+          name: 'PackagesView',
+          factory: $PackagesViewPageRouteExtension._fromState,
+        ),
+      ],
     );
 
 extension $HomePageRouteExtension on HomePageRoute {
@@ -23,6 +30,31 @@ extension $HomePageRouteExtension on HomePageRoute {
 
   String get location => GoRouteData.$location(
         '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $PackagesViewPageRouteExtension on PackagesViewPageRoute {
+  static PackagesViewPageRoute _fromState(GoRouterState state) =>
+      PackagesViewPageRoute(
+        query: state.uri.queryParameters['query'],
+        sort: state.uri.queryParameters['sort'],
+      );
+
+  String get location => GoRouteData.$location(
+        '/packages',
+        queryParams: {
+          if (query != null) 'query': query,
+          if (sort != null) 'sort': sort,
+        },
       );
 
   void go(BuildContext context) => context.go(location);
