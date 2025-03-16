@@ -78,10 +78,19 @@ extension $PackageHomeViewPageRouteExtension on PackageHomeViewPageRoute {
   static PackageHomeViewPageRoute _fromState(GoRouterState state) =>
       PackageHomeViewPageRoute(
         packageName: state.pathParameters['packageName']!,
+        version: state.uri.queryParameters['version'] ?? 'latest',
+        tab: _$convertMapValue('tab', state.uri.queryParameters,
+                _$PackageHomeViewTabsEnumMap._$fromName) ??
+            PackageHomeViewTabs.readMe,
       );
 
   String get location => GoRouteData.$location(
         '/packages/${Uri.encodeComponent(packageName)}',
+        queryParams: {
+          if (version != 'latest') 'version': version,
+          if (tab != PackageHomeViewTabs.readMe)
+            'tab': _$PackageHomeViewTabsEnumMap[tab],
+        },
       );
 
   void go(BuildContext context) => context.go(location);
@@ -92,6 +101,27 @@ extension $PackageHomeViewPageRouteExtension on PackageHomeViewPageRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+const _$PackageHomeViewTabsEnumMap = {
+  PackageHomeViewTabs.readMe: 'read-me',
+  PackageHomeViewTabs.changelog: 'changelog',
+  PackageHomeViewTabs.installing: 'installing',
+  PackageHomeViewTabs.versions: 'versions',
+};
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
+}
+
+extension<T extends Enum> on Map<T, String> {
+  T _$fromName(String value) =>
+      entries.singleWhere((element) => element.value == value).key;
 }
 
 RouteBase get $splashPageRoute => GoRouteData.$route(

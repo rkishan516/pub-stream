@@ -42,8 +42,8 @@ dart_frog dev
 
 ## Upcoming Features
 
-- [ ] Add flutter web frontend
+- [x] Add flutter web frontend
 - [ ] Add authentication cli + web
 - [ ] Add support for Team
 - [ ] Add Vs Code Extension to add package to current app
-- [ ] Enhance UI + UX (Simple & Minimal)
+- [x] Enhance UI + UX (Simple & Minimal)

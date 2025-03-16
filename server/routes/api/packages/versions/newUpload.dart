@@ -43,7 +43,7 @@ Future<Response> onRequest(RequestContext context) async {
       (BytesBuilder byteBuilder, d) => byteBuilder..add(d),
     );
     final tarballBytes = bb.takeBytes();
-    final tarBytes = GZipDecoder().decodeBytes(tarballBytes);
+    final tarBytes = const GZipDecoder().decodeBytes(tarballBytes);
     final archive = TarDecoder().decodeBytes(tarBytes);
     ArchiveFile? pubspecArchiveFile;
     ArchiveFile? readmeFile;

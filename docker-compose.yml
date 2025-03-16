@@ -23,8 +23,8 @@ services:
     ports:
       - "8080:8080"
     build:
-      context: ./server
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: server/Dockerfile
     depends_on:
       - mongo
       - mock_s3
