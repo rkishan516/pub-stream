@@ -23,6 +23,8 @@ services:
     build:
       context: .
       dockerfile: server/Dockerfile
+    environment:
+      - DB_URI=mongodb://mongo:27017/dart_pub
     depends_on:
       - mongo
       - mock_s3

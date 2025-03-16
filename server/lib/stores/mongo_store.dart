@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:intl/intl.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 
@@ -10,10 +12,8 @@ const statsCollection = 'stats';
 class MongoStore extends MetaStore {
   MongoStore();
 
-  static const _dbUri = String.fromEnvironment(
-    'DB_URI',
-    defaultValue: 'mongodb://localhost:27017/dart_pub',
-  );
+  static final _dbUri =
+      Platform.environment['DB_URI'] ?? 'mongodb://localhost:27017/dart_pub';
   static final db = Db(_dbUri);
 
   @override

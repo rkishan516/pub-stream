@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dart_frog/dart_frog.dart';
 import 'package:server/stores/file_store.dart';
 import 'package:server/stores/meta_store.dart';
@@ -32,13 +34,8 @@ Middleware environmentConfigProvider() {
 }
 
 class EnvironmentConfig {
-  final upstream = const String.fromEnvironment(
-    'UPSTREAM',
-    defaultValue: 'https://pub.dev',
-  );
+  final upstream = Platform.environment['UPSTREAM'] ?? 'https://pub.dev';
 
-  final dbUri = const String.fromEnvironment(
-    'DB_URI',
-    defaultValue: 'mongodb://localhost:27017/dart_pub',
-  );
+  final dbUri =
+      Platform.environment['DB_URI'] ?? 'mongodb://localhost:27017/dart_pub';
 }
